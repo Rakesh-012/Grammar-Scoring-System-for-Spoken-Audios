@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grammar Scoring Engine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ---------- COLOR PALETTE ---------- */
+        :root {
+            --light-blue-bg: #ADD8E6; /* soft light blue background */
+            --dark-header-bg: #222222; /* dark header/button */
+            --white-card-bg: #ffffff;
+            --text-color: #333333;
+            --muted-text: #6c757d;
+            --input-border: #cccccc;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            --radius: 14px;
+        }
+
+        /* ---------- BASE STYLES ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--light-blue-bg);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        /* ---------- CARD ---------- */
+        .card-container {
+            width: 100%;
+            max-width: 420px;
+            background: var(--white-card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 20px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .card-header {
+            background-color: var(--dark-header-bg);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        /* ---------- FORM ---------- */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 1.5px solid var(--input-border);
+            border-radius: 10px;
+            background: #f8f9fa;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
+        }
+
+        input[type="file"]:hover {
+            border-color: var(--dark-header-bg);
+            background: #f0f0f0;
+        }
+
+        button {
+            background-color: var(--dark-header-bg);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background-color: #333333; /* slightly lighter dark */
+        }
+
+        button:active {
+            transform: none; /* No raise effect */
+        }
+
+        /* ---------- RESULT ---------- */
+        .result {
+            background: var(--white-card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 25px;
+            text-align: center;
+            width: 100%;
+            max-width: 420px;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .result strong {
+            font-size: 1.4rem;
+            color: var(--dark-header-bg);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .result p {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            margin: 5px 0;
+        }
+
+        .result small {
+            color: var(--muted-text);
+            font-size: 0.9rem;
+            display: block;
+            margin-top: 10px;
+        }
+
+        /* ---------- ANIMATIONS ---------- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card-container">
+        <div class="card-header">Grammar Scoring Engine</div>
+        <div class="card-body">
+            <form action="/" method="POST" enctype="multipart/form-data">
+                <div>
+                    <label for="audiofile">Upload Audio File (.wav)</label>
+                    <input type="file" id="audiofile" name="audiofile" accept=".wav" required>
+                </div>
+                <button type="submit">Predict Grammar Score</button>
+            </form>
+        </div>
+    </div>
+
+    {% if score is not none %}
+    <div class="result">
+        <strong>Predicted Grammar Score:</strong>
+        <p style="font-size: 2.3rem; font-weight: 700;">{{ score }}</p>
+        <small>Uploaded File: {{ filename }}</small>
+    </div>
+    {% endif %}
+</body>
+</html>
